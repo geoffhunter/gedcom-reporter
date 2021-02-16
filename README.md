@@ -1,4 +1,6 @@
-# gedcom-reporter allows the user to produce an ancestry report, in Microsoft Word (.docx) format, from a GEDCOM format file. 
+# gedcom-reporter
+
+Allows the user to produce an ancestry report, in Microsoft Word (.docx) format, from a GEDCOM format file. 
 
 The report shows each family on a new page, starting with a specified family. 
 
