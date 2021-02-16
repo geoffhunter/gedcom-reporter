@@ -6,7 +6,7 @@ The report shows each family on a new page, starting with a specified family.
 
 Each page shows a family reference code, then the husband, wife and children with birth, baptism, marriage, death and burial places and dates. 
 
-Names are followed by a family reference code indicating where the person appears elsewhere in the report, to assist in moving around the report.Names
+Names are followed by a family reference code indicating where the person appears elsewhere in the report, to assist in moving around the report. Names
 may also have a hyperlink to the page where they also also appear as a parent or child. 
 
 Each page is followed by further pages showing the husband's family and ancestors, where available, then the wife's family and ancestors, where available.
