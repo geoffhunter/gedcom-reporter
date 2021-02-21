@@ -1,0 +1,18 @@
+GED File~Hunter Family Tree.ged
+Page Size~A4
+Initial Family~345
+Title Page Required~Y
+Contents Required~N
+Index Required~Y
+Document Images Required~N
+Website Path~C:\Users\geoff\OneDrive\Documents\My Web Sites\FamilyHistoryRecords
+Title Line 1~Ancestry Report
+Title Line 2~Robert D'Oyly
+Title Line 3~and
+Title Line 4~?
+Country to remove 1~England
+Country to remove 2~United Kingdom
+Person1~3
+Person2~2
+Person3~350
+Person4~349
