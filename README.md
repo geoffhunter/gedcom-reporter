@@ -2,6 +2,8 @@
 
 Allows the user to produce an ancestry report, in Microsoft Word (.docx) format, from a GEDCOM format file. 
 
+Note: this utility needs the .py and .txt files in the gedcom-file-processor repository to function
+
 The report shows each family on a new page, starting with a specified family. 
 
 Each page shows a family reference code, then the husband, wife and children with birth, baptism, marriage, death and burial places and dates. 
