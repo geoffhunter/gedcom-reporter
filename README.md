@@ -16,7 +16,7 @@ Each family page is followed by further pages showing the husband's family and a
 
 Modules
 
-•	FamilyTreeReporter.pyw
+gedcom-reporter.pyw
 
 The main module. This module presents the user with a Windows user interface, allowing them to edit parameters, process a GEDCOM format file or run the report.
 
@@ -38,11 +38,11 @@ Title Line 4:	4th line of text on title page
 Country to remove 1:	1st country to remove. Where many place names contain the same ‘home’ country, e.g. England, or United Kingdom, specify that country here to remove it.
 Country to remove 2:	Specify a 2nd country here to remove it from place names.
 
-•	ged_lib.py
+ged_lib.py
 
 See the GEDCOMFileProcessor utility for information on this module.
 
-•	create_report.py
+create_report.py
 
 This module contains the create_report subroutine that creates Report.docx based on the parameters and information in Individuals.txt, Families.txt and Children.txt.
 
