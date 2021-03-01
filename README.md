@@ -46,7 +46,7 @@ create_report.py
 
 This module contains the create_report subroutine that creates Report.docx based on the parameters and information in Individuals.txt, Families.txt and Children.txt.
 
-create_report opens a new document, calls set_page_size to define page attributes for the page size defined in params, then obtains the initial family id from params then calls tree_walk to obtain a list of ‘families to report’, and writes this list to FamiliesToReport.txt. If the initial family was 0, it reads the existing list of ‘families to report’, from FamiliesToReport.txt and proceeds with them.
+create_report opens a new document, calls set_page_size to define page attributes for the page size defined in params, then obtains the initial family id from params then calls tree_walk to obtain a list of ‘families to report’, and writes this list to familiestoreport.txt. If the initial family was 0, it reads the existing list of ‘families to report’, from familiestoreport.txt and proceeds with them.
 
 create_report then calls write_title_page, to write the title page, if required, and calls write_contents, to write contents pages, if required. Then for each family in the ‘families to report’ list, it calls add_family_to_index, to write the family to the index list, then calls write_page, to write the family pages. After it has written all the family pages, it then calls write_index, to write the index pages, if required, then saves the open document as Report.docx.
 
@@ -90,9 +90,9 @@ set_section_attributes sets section attributes i.e. orientation, page height and
 
 new_section is called each time a new page is started, to create the section and call set_section_attributes.
 
-read_families_to_report reads FamiliesToReport.txt into the ‘families to report’ list.
+read_families_to_report reads familiestoreport.txt into the ‘families to report’ list.
 
-write_families_to_report writes the ‘families to report’ list to FamiliesToReport.txt.
+write_families_to_report writes the ‘families to report’ list to familiestoreport.txt.
 
 get_family_number returns the family number for the family (id passed as a parameter).
 
