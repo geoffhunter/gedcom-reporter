@@ -1,6 +1,6 @@
 # gedcom-reporter
 
-Note: this utility needs the .py and .txt files in the gedcom-file-processor repository to function
+Note: this utility needs the ged_lib.py and params.txt files in the gedcom-file-processor repository to function
 
 It allows the user to produce an ancestry report, in Microsoft Word (.docx) format, from a GEDCOM format file. 
 
