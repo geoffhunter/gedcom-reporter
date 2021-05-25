@@ -185,10 +185,10 @@ def write_family_page(document, family_number, family_id, page_no):
     write_footer (section, ' ')
 
     if gl.document_images_required == 'Y':
-        husband_id = families[family_id].husband_id
+        husband_id = gl.families[family_id].husband_id
         if husband_id != 0:
             write_documents(document, husband_id)
-        wife_id = families[family_id].wife_id
+        wife_id = gl.families[family_id].wife_id
         if wife_id != 0:
             write_documents(document, wife_id)
 
@@ -292,14 +292,14 @@ def add_link(paragraph, link_to, text):
     run.font.underline = True
 
 def write_documents(document, id):
-    forename = individuals[id].forename
-    name = individuals[id].surname
+    forename = gl.individuals[id].forename
+    name = gl.individuals[id].surname
     name = name + ', ' + forename
-    birth_date = individuals[id].birth_date
+    birth_date = gl.individuals[id].birth_date
     year = birth_date[-4:]
     name = name + ' b. ' + year
     path = gl.website_path + "/images"
-    for image_type in it.image_types:
+    for image_type in image_types:
         file_to_find = name + ' - ' + image_type + '.jpg'
         for file in os.listdir(path):
             if file.lower() == file_to_find.lower():
@@ -380,13 +380,13 @@ def write_contents(document):
         family_id = families_to_report[i].family_id
         if family_id == 0: break
 
-        husband_id = families[family_id].husband_id
+        husband_id = gl.families[family_id].husband_id
         if husband_id != 0:
-            husband_name = get_name(husband_id)
+            husband_name = gl.get_name(husband_id)
         
-        wife_id = families[family_id].wife_id
+        wife_id = gl.families[family_id].wife_id
         if wife_id != 0:
-            wife_name = get_name(wife_id)
+            wife_name = gl.get_name(wife_id)
         
         s_family_number = str(family_number)
         contents_record = 'F' + s_family_number + '   ' + husband_name + ', ' + wife_name
@@ -397,8 +397,8 @@ def write_contents(document):
 
 def write_index(document):
     section = new_section(document, 'P')
-    idx.index.sort(key=operator.attrgetter('key'))
-    r = len(idx.index)
+    index.sort(key=operator.attrgetter('key'))
+    r = len(index)
     for i in range(0, r):
         index_within_page = i % (index_rows * 2) # remainder
         if index_within_page == 0: # if first record on a page
@@ -413,13 +413,13 @@ def write_index(document):
         row_within_page = index_within_page % index_rows # remainder 
         col_within_page = index_within_page // index_rows # integer divide 
         
-        index_record = idx.index[i].surname
+        index_record = index[i].surname
         if index_record == last_surname and index_record != '' and row_within_page > 0:
             index_record = '-----'
         else:
             last_surname = index_record
-        index_record = index_record + ', ' + idx.index[i].forename + ' '
-        year = idx.index[i].birth_year
+        index_record = index_record + ', ' + index[i].forename + ' '
+        year = index[i].birth_year
         if year != '':
             index_record = index_record + 'b. ' + year + ' '
         
@@ -427,8 +427,8 @@ def write_index(document):
         table.cell(row_within_page, col_within_page).paragraphs[0].runs[0].font.name = font_name
         table.cell(row_within_page, col_within_page).paragraphs[0].runs[0].font.size = Pt(normal_font_size)
 
-        family_number_where_spouse = idx.index[i].family_number_where_spouse
-        family_number_where_child = idx.index[i].family_number_where_child
+        family_number_where_spouse = index[i].family_number_where_spouse
+        family_number_where_child = index[i].family_number_where_child
         if family_number_where_spouse != 0:
             add_link(table.cell(row_within_page, col_within_page).paragraphs[0], \
                      family_number_where_spouse, family_number_where_spouse)
