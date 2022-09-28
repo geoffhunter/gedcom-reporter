@@ -29,7 +29,7 @@ def create_report():
         read_families_to_report()
     else:
         family_id = gl.initial_family
-        family_number = 1
+        family_number = gl.initial_family
         tree_walk(family_number, family_id)
         write_families_to_report()
 
@@ -44,7 +44,7 @@ def create_report():
         write_contents(document)
     
     page_no = 1
-    for i in range(0,len(families_to_report)):
+    for i in families_to_report:
         family_number = families_to_report[i].family_number
         family_id = families_to_report[i].family_id
         to_report = families_to_report[i].to_report
@@ -80,13 +80,9 @@ def add_family_to_index(family_id):
     update_index(husband_id)
     wife_id = gl.families[family_id].wife_id
     update_index(wife_id)
-    for i in range(0,len(gl.children)):
-        child_family_id = gl.children[i].family_id
-        if child_family_id != 0:
-            if child_family_id > family_id: break
-            if family_id == child_family_id:
-                child_id = gl.children[i].child_id
-                update_index(child_id)
+    for i in range(0,len(gl.families[family_id].child_ids)):
+        child_id = gl.families[family_id].child_ids[i]
+        update_index(child_id)
 
 def update_index(id):
     if id != 0:
@@ -169,17 +165,13 @@ def write_family_page(document, family_number, family_id, page_no):
     write_text(table, row, 0, 'Children')
 
     child_no = 0
-    for i in range(0,len(gl.children)):
-        children_family_id = gl.children[i].family_id
-        if children_family_id != 0:
-            if children_family_id > family_id: break
-            if family_id == children_family_id:
-                child_no = child_no + 1
-                child_id = gl.children[i].child_id
-                s_child_no = '#' + str(child_no)
-                row = row + 1
-                table.add_row()
-                row = write_individual(table, s_child_no, row, child_id)
+    for i in range(0,len(gl.families[family_id].child_ids)):
+        child_no = child_no + 1
+        child_id = gl.families[family_id].child_ids[i]
+        s_child_no = '#' + str(child_no)
+        row = row + 1
+        table.add_row()
+        row = write_individual(table, s_child_no, row, child_id)
             
     set_col_widths(table)
     write_footer (section, ' ')
@@ -373,11 +365,13 @@ def write_contents(document):
         
     table = document.add_table(rows=len(families_to_report) + 1, cols=1)
     write_text (table, 0, 0, 'Contents')
-    for i in range(0,len(families_to_report)):
+    index = -1
+    for i in families_to_report:
         husband_name = ''
         wife_name = ''
         family_number = families_to_report[i].family_number
         family_id = families_to_report[i].family_id
+        index = index + 1
         if family_id == 0: break
 
         husband_id = gl.families[family_id].husband_id
@@ -390,7 +384,7 @@ def write_contents(document):
         
         s_family_number = str(family_number)
         contents_record = 'F' + s_family_number + '   ' + husband_name + ', ' + wife_name
-        paragraph = table.cell(i + 1, 0).paragraphs[0]
+        paragraph = table.cell(index + 1, 0).paragraphs[0]
         link_to = '[F' + s_family_number + ']' 
         add_link (paragraph, link_to, contents_record)
     write_footer (section, ' ')
@@ -516,7 +510,7 @@ class families_to_report_class(object):
         self.family_id = family_id
         self.to_report = to_report
 
-families_to_report = []
+families_to_report = {}
 
 def read_families_to_report():
     file = open('familiestoreport.txt','r')
@@ -530,11 +524,11 @@ def read_families_to_report():
         add_family_to_report(int(x[0]), int(x[1]), x[6])
 
 def add_family_to_report(family_number, family_id, to_report):
-    families_to_report.append(families_to_report_class(family_number, family_id, to_report))
+    families_to_report[family_id] = (families_to_report_class(family_number, family_id, to_report))
     
 def write_families_to_report():
     file = open('FamiliesToReport.txt','w')
-    for i in range(0,len(families_to_report)):
+    for i in families_to_report:
         family_id = int(families_to_report[i].family_id)
         husbands_name = ""
         husbands_birth_date = ""
@@ -566,7 +560,7 @@ def write_families_to_report():
 
 def get_family_number(family_id):
     if (family_id != 0):
-        for i in range(0,len(families_to_report)):
+        for i in families_to_report:
             if family_id == families_to_report[i].family_id:
                 return(families_to_report[i].family_number)
     return(0)

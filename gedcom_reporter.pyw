@@ -8,7 +8,6 @@ def clicked1():
     gl.process_ged_file()
 
 def clicked2():
-    gl.process_ged_file()
     cr.create_report()
 
 def exit():
