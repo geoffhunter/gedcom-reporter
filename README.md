@@ -1,10 +1,8 @@
 # gedcom-reporter
 
-Note: this utility needs the ged_lib.py and params.txt files in the gedcom-file-processor repository to function
+*A utility to produce an ancestry report, in Microsoft Word (.docx) format, from a GEDCOM format file.*
 
-A utility to produce an ancestry report, in Microsoft Word (.docx) format, from a GEDCOM format file.
-
-Overview
+## Overview
 
 This utility allows the user to produce an ancestry report, in Microsoft Word (.docx) format, from a GEDCOM format file. 
 
@@ -14,35 +12,49 @@ Each page shows a family, starting with the family reference code (‘F’ follo
 
 Each family page is followed by further pages showing the husband's family and ancestors, where known, then the wife's family and ancestors, where known.
 
-Modules
+## Prerequisites
 
-gedcom-reporter.pyw
+* **python-docx** [ [PyPI](https://pypi.org/project/python-docx/) | [GitHub](https://github.com/python-openxml/python-docx) ]
+> `pip install python-docx`
+
+* **OpenCV on Wheels** [ [PyPI](https://pypi.org/project/opencv-python/) | [GitHub](https://github.com/opencv/opencv-python) ]
+> `pip install opencv-python`
+
+* This utility needs the **ged_lib.py** and **params.txt** files in the [**gedcom-file-processor**](https://github.com/geoffhunter/gedcom-file-processor) repository to function:
+
+> `mklink ged_lib.py ..\gedcom-file-processor\ged_lib.py`
+
+> `mklink params.txt ..\gedcom-file-processor\params.txt`
+
+## Modules
+
+### gedcom-reporter.pyw
 
 The main module. This module presents the user with a Windows user interface, allowing them to edit parameters, process a GEDCOM format file or run the report.
 
 Parameters are:
 
-GED File: The name of the GEDCOM format file to be processed. The file should be in the location where the utility runs.
-Page Size: A4 or A5
-Initial Family:	The first family in the report. To obtain this, first process a GEDCOM format file. This will produce Individuals.txt, Families.txt and Children.txt containing lists of individuals, families and children in the GEDCOM file. First, in Individuals.txt, find the IDs of the husband and wife for the first family in the report, then, in Families.txt, find the ID of the family. Note: each time a report is produced, the utility produces FamiliesToReport.txt containing a list of the family ID of the families in the report. Setting the Initial Family parameter to 0 will cause the utility to produce the report based on these families. FamiliesToReport.txt can be manually edited to remove unwanted families from the report, or to add additional families.
-Title Page Required: Set to Y if a title page is required.
-Contents Required: Set to Y if contents pages are required.
-Index Required: Set to Y if index pages are required.
-Document Images Required: Set to Y if document images are required
+* GED File: The name of the GEDCOM format file to be processed. The file should be in the location where the utility runs.
+* Page Size: A4 or A5
+* Initial Family:	The first family in the report. To obtain this, first process a GEDCOM format file. This will produce Individuals.txt, Families.txt and Children.txt containing lists of individuals, families and children in the GEDCOM file. First, in Individuals.txt, find the IDs of the husband and wife for the first family in the report, then, in Families.txt, find the ID of the family. Note: each time a report is produced, the utility produces FamiliesToReport.txt containing a list of the family ID of the families in the report. Setting the Initial Family parameter to 0 will cause the utility to produce the report based on these families. FamiliesToReport.txt can be manually edited to remove unwanted families from the report, or to add additional families.
+* Title Page Required: Set to Y if a title page is required.
+* Contents Required: Set to Y if contents pages are required.
+* Index Required: Set to Y if index pages are required.
+* Document Images Required: Set to Y if document images are required
 Website Path: Set to the full path of the folder containing an ‘images’ folder containing document images, e.g. if images are in C:\website\images, set this parameter to C:\website. Note: each document images must have a filename with the name and date of birth of an individual in the report, e.g. where for an individual called Mary Jane Swales, born in 1885, the Birth Index Register document image filename should be ‘Swales, Mary Jane b. 1885 – BIR.jpg’.
 BIR is an image type (see write_documents.py module for further explanation) 
-Title Line 1: 1st line of text on title page
-Title Line 2:	2nd line of text on title page
-Title Line 3:	3rd line of text on title page
-Title Line 4:	4th line of text on title page
-Country to remove 1:	1st country to remove. Where many place names contain the same ‘home’ country, e.g. England, or United Kingdom, specify that country here to remove it.
-Country to remove 2:	Specify a 2nd country here to remove it from place names.
+* Title Line 1: 1st line of text on title page
+* Title Line 2:	2nd line of text on title page
+* Title Line 3:	3rd line of text on title page
+* Title Line 4:	4th line of text on title page
+* Country to remove 1:	1st country to remove. Where many place names contain the same ‘home’ country, e.g. England, or United Kingdom, specify that country here to remove it.
+* Country to remove 2:	Specify a 2nd country here to remove it from place names.
 
-ged_lib.py
+### ged_lib.py
 
-See the GEDCOMFileProcessor utility for information on this module.
+See the [**gedcom-file-processor**](https://github.com/geoffhunter/gedcom-file-processor) utility for information on this module.
 
-create_report.py
+### create_report.py
 
 This module contains the create_report subroutine that creates Report.docx based on the parameters and information in Individuals.txt, Families.txt and Children.txt.
 
